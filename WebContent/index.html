@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Github Profile</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<link id="stylechange" rel="stylesheet" href="css/index.css">
+<script src="script.js"></script>
+<script src="github.js"></script>
+</head>
+<body>
+	<nav class="navbar navbar-default" role="navigation">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse"
+				data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#">GitHub Api</a>
+		</div>
+		<br>
+	</nav>
+	<div ng-controller="githubViewer" class="container-fluid">
+		<div class="container">
+			<h3>Welcome {{message}}!</h3>
+			<div>{{error}}</div>
+
+			{{countdown}}
+			<div class="search">
+				<form name="searchUser" ng-submit="search(username)">
+					<input type="search" placeholder="Username to find"
+						ng-model="username" required maxlength="100"
+						class="form-control input-sm" />
+					<button type="submit" class="btn btn-primary btn-sm">Search</button>
+				</form>
+			</div>
+		</div>
+		<div>
+			<div class="container" ng-show="user">
+				<div>Name : {{user.name}}</div>
+				<div>Location: {{user.location}}</div>
+				<div>
+					<img ng-src="{{user.avatar_url}}" alt="{{user.name}}"
+						title="{{user.name}}" style="height: 125px">
+				</div>
+
+			</div>
+			<div class="container" ng-show="user" id="userdetails">
+				<h2>List of Repositories</h2>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Stars</th>
+							<th>Language</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="repo in repos | orderBy:repoSortOrder">
+							<td>{{repo.name}}</td>
+							<td>{{repo.stargazers_count | number }}</td>
+							<td>{{repo.language}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+</body>
+</html>
