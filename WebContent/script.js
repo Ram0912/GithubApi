@@ -5,10 +5,16 @@ app.controller('githubViewer', function($scope, github, $interval, $log,
 	var onUsercomplete = function(data) {
 		$scope.user = data;
 		github.getRepos($scope.user).then(onRepos, onError);
+		github.getStarred($scope.user).then(onStarred, onError);
 	};
 
 	var onRepos = function(data) {
 		$scope.repos = data;
+		$location.hash("userdetails");
+		$anchorScroll();
+	};
+	var onStarred = function(data) {
+		$scope.starred = data;
 		$location.hash("userdetails");
 		$anchorScroll();
 	};
@@ -24,6 +30,17 @@ app.controller('githubViewer', function($scope, github, $interval, $log,
 		}
 	};
 
+	
+	var getFile = function(repoName){
+		var repoName = document.getElementById("repoName").value;
+		github.getValue(repoName).then(onFiles, onError);
+	}
+	
+	var onFiles = function(data) {
+		$scope.files = data;
+		$anchorScroll();
+	}
+
 	var countdownInterval = null;
 	var startCountdown = function() {
 		countdownInterval = $interval(decrementCountdown, 1000,
@@ -37,22 +54,21 @@ app.controller('githubViewer', function($scope, github, $interval, $log,
 			$interval.cancel(countdownInterval);
 			$scope.countdown = null;
 		}
-
 	};
 
-	$scope.getReadMe = function() {
-
-		var repoName = document.getElementById("repoName").value();
-		var userName = $scope.user.name;
-		$scope.readMeUrl = $http.get('https://github.com/' + userName + '/'
-				+ repoName + '/blob/master/README.md');
-	}
+	/*
+	 * $scope.getReadMe = function() {
+	 * 
+	 * var repoName = document.getElementById("repoName").value(); var userName =
+	 * $scope.user.name; $scope.readMeUrl = $http.get('https://github.com/' +
+	 * userName + '/' + repoName + '/blob/master/README.md'); }
+	 */
 
 	$scope.username = "Ram0912";
 	$scope.message = "GitHub Viewer";
 	$scope.repoSortOrder = "-stargazers_count";
 	$scope.countdown = 10;
 	startCountdown();
-	$scope.readMeUrl = 'https://www.w3schools.com';
+	/* $scope.readMeUrl = 'https://www.w3schools.com'; */
 
 });

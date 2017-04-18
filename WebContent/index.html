@@ -13,8 +13,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 <link id="stylechange" rel="stylesheet" href="css/index.css">
-<script src="script.js"></script>
-<script src="github.js"></script>
+
 </head>
 <body>
 	<nav class="navbar navbar-default" role="navigation">
@@ -47,7 +46,7 @@
 		</div>
 		<div>
 			<div class="container" ng-show="user">
-				<div>Name : {{user.name}}</div>
+				<div id="userName">Name : {{user.name}}</div>
 				<div>Location: {{user.location}}</div>
 				<div>
 					<img ng-src="{{user.avatar_url}}" alt="{{user.name}}"
@@ -63,29 +62,74 @@
 							<th>Name</th>
 							<th>Stars</th>
 							<th>Language</th>
+							<th>UpdatedAt</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="repo in repos | orderBy:repoSortOrder">
-							<td><div class="dropdown">
-									<a href="{{repo.html_url}}" id="repoName">{{repo.name}}</a>
-									<div class="dropdown-content">
-										<a href="{{readMeUrl}}"
-											data-ng-click="getReadMe()">Read Me</a>
-									</div>
-								</div></td>
+
+						<tr
+							ng-repeat="repo in repos | orderBy:repoSortOrder | filter : {fork:false}">
+							<td onClick="getFile()" id="repoName"><a
+								href="">{{repo.name}}</a></td>
 							<td>{{repo.stargazers_count | number }}</td>
 							<td>{{repo.language}}</td>
+							<td>{{repo.updated_at}}</td>
 						</tr>
 					</tbody>
 				</table>
-				<div>
-					<object type="text/html" data="https://www.google.co.in" width=100%
-						height=500px style="overflow: auto; border: 5px ridge blue">
-					</object>
-					<iframe src="https://www.w3schools.com/"></iframe>
-				</div>
+
+			</div>
+			<div class="container" ng-show="user" id="userdetails">
+				<h2>List of Starred Repositories</h2>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Stars</th>
+							<th>Language</th>
+							<th>UpdatedAt</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="star in starred">
+							<td><a href="">{{star.name}}</a></td>
+							<td>{{star.stargazers_count | number }}</td>
+							<td>{{star.language}}</td>
+							<td>{{star.updated_at}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="container" ng-show="user" id="userdetails">
+				<h2>List of Forked Repositories</h2>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Stars</th>
+							<th>Language</th>
+							<th>UpdatedAt</th>
+							
+						</tr>
+					</thead>
+					<tbody>
+						<tr
+							ng-repeat="repo in repos | orderBy:repoSortOrder | filter : {fork:true}">
+							<td><div class="dropdown">
+									<a href="{{repo.html_url}}" id="repoName">{{repo.name}}</a>
+								</div></td>
+							<td>{{repo.stargazers_count | number }}</td>
+							<td>{{repo.language}}</td>
+							<td>{{repo.updated_at}}</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
+	</div>
+
+
 </body>
+<script  type="text/javascript" src="script.js"></script>
+<script src="github.js"></script>
 </html>
