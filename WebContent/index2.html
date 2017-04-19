@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<link id="stylechange" rel="stylesheet" href="css/New.css">
+<meta charset="ISO-8859-1">
+<title>Github View</title>
+<script type="text/javascript" src="script.js"></script>
+<script type="text/javascript" src="github.js"></script>
+</head>
+<body ng-controller="githubViewer">
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#myNavbar">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#"><img
+					src="https://pbs.twimg.com/profile_images/519367942866104320/PB96rDH_.png"
+					width="100px" height="70px"></a>
+			</div>
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav">
+					<li><a href="#" color="black">GitHub View</a></li>
+					<li><a href="#"> Hi Welcome</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><form class="navbar-form" name="searchUser"
+							ng-submit="search(username)">
+							<div class="input-group">
+								<input type="text" class="form-control" ng-model="username"
+									placeholder="Search for Github ">
+
+								<div class="input-group-btn">
+									<button class="btn btn-default" type="submit">
+										<span class="glyphicon glyphicon-search"></span>
+									</button>
+								</div>
+							</div>
+						</form></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="container">
+
+		<div class="row">
+			<div class="col-sm-3 col-md-2">
+				<a href="#" class="btn btn-danger btn-sm btn-block" role="button">UserName</a>
+				<hr />
+				<ul class="nav nav-pills nav-stacked">
+					<li class="active"><a href="#"><span
+							class="badge pull-right">42</span> Repositories</a></li>
+					<li><a href="#">Stars</a></li>
+					<li><a href="http://www.jquery2dotnet.com">Followers</a></li>
+					<li><a href="http://www.jquery2dotnet.com">Following</a></li>
+					<li><a href="http://www.jquery2dotnet.com"><span
+							class="badge pull-right">3</span>Drafts</a></li>
+				</ul>
+			</div>
+			<div class="col-sm-9 col-md-10">
+				<!-- Nav tabs -->
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#home" data-toggle="tab"><span
+							class="glyphicon glyphicon-inbox"> </span>Own Repos</a></li>
+					<li><a href="#profile" data-toggle="tab"><span
+							class="glyphicon glyphicon-star"></span> Starred Repos</a></li>
+					<li><a href="#messages" data-toggle="tab"><span
+							class="glyphicon glyphicon-tags"></span> Forked Repos</a></li>
+					<li><a href="#settings" data-toggle="tab"><span
+							class="glyphicon glyphicon-plus no-margin"> </span></a></li>
+				</ul>
+				<!-- Tab panes -->
+				<div class="tab-content">
+					<div class="tab-pane fade in active" id="home">
+						<div class="list-group" ng-show="user" id="userdetails">
+							<a href="#" class="list-group-item" ng-repeat="repo in repos | orderBy:repoSortOrder | filter : {fork:false}"> <span
+								class="glyphicon glyphicon-star-empty"></span><span class="name"
+								style="min-width: 120px; display: inline-block;" ng-click="getFile($event)" onclick="myFunction()" id="{{repo.name}}">{{repo.name}}</span> <span class="">description</span> <span class="text-muted"
+								style="font-size: 11px;">- {{repo.language}}</span> <span class="badge">{{repo.updated_at}}</span> <span class="pull-right"></span>
+							</a>
+							
+							<a href="#" class="list-group-item">
+								 <span class="glyphicon glyphicon-star-empty"></span><span
+								class="name" style="min-width: 120px; display: inline-block;">Repo name</span> <span class="">description</span> <span
+								class="text-muted" style="font-size: 11px;">- language</span> <span class="badge">updated at</span> <span
+								class="pull-right"></span>
+							</a>
+						
+						</div>
+					</div>
+					<div class="tab-pane fade in" id="profile">
+						<div class="list-group">
+							<a href="#" class="list-group-item"> <span
+								class="glyphicon glyphicon-star-empty"></span><span class="name"
+								style="min-width: 120px; display: inline-block;">Repo
+									name</span> <span class="">description</span> <span class="text-muted"
+								style="font-size: 11px;">- language</span> <span class="badge">updated
+									at</span> <span class="pull-right"></span>
+							</a>
+						</div>
+					</div>
+					<div class="tab-pane fade in" id="messages">
+						<div class="list-group">
+							<a href="#" class="list-group-item"> <span
+								class="glyphicon glyphicon-star-empty"></span><span class="name"
+								style="min-width: 120px; display: inline-block;">Repo
+									name</span> <span class="">description</span> <span class="text-muted"
+								style="font-size: 11px;">- language</span> <span class="badge">updated
+									at</span> <span class="pull-right"></span>
+							</a>
+						</div>
+					</div>
+					<div class="tab-pane fade in" id="settings">This tab is
+						empty.</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+</body>
+<script>
+	
+</script>
+</html>

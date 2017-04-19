@@ -20,12 +20,12 @@
 					})
 
 		};
-		var getValue = function(repoName) {
-			var username = document.getElementById("userName").value;
+		var getValue = function(repoName, username) {
+		
 			return $http.get(
 					"https://api.github.com/repos/" + username + "/" + repoName
-							+ "/contents").then(function(response) {
-				return response.data;
+							+ "/contents/README.md").then(function(response) {
+				return response.data.content;
 			})
 		};
 		return {
