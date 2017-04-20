@@ -1,6 +1,5 @@
 
 
-var app = angular.module('myApp', []);
 app.controller('githubViewer', function( $scope, github, $interval, $log,
 		$anchorScroll, $location) {
 
