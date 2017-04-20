@@ -12,8 +12,12 @@ app.config(function($routeProvider) {
 		controller : 'githubViewer'
 	})
 
-	.when('/about', {
-		templateUrl : 'pages/about.html',
+	.when('/star', {
+		templateUrl : 'star.html',
+		controller : 'githubViewer'
+	})
+		.when('/forked', {
+		templateUrl : 'forked.html',
 		controller : 'githubViewer'
 	})
 
