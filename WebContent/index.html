@@ -10,26 +10,25 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.6.4/showdown.js"></script>
 
 
-	     
+
+
 <link id="stylechange" rel="stylesheet" href="css/New.css">
 <style>
 .foo {
-  background-color: red;
+	background-color: red;
 }
 
-blockquote 
-{ 
-  border-left: 5px solid rgba(0,0,0,0.2); 
-  margin-left: 0;
-  padding-left: 2em;
+blockquote {
+	border-left: 5px solid rgba(0, 0, 0, 0.2);
+	margin-left: 0;
+	padding-left: 2em;
 }
 </style>
 </head>
-<body ng-app="myApp" ng-controller="githubViewer">
+<body ng-app="myApp" >
+<div class="container"  ng-controller="githubViewer">
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -92,55 +91,41 @@ blockquote
 							<li><a href="#/following"><span class="badge pull-right">{{user.following}}</span>Following</a></li>
 						</ul>
 					</div>
-					<div class="col-md-5" ng-show="user">
+					<div class="col-md-5" ng-show="user" ng-view="">
 						<!-- Nav tabs -->
-						<div ng-view=""></div>
+						
 					</div>
-					<div class="col-md-5" ng-show="user">
-						<p>{{file}}</p>
-					</div>
+
 				</div>
 			</div>
 		</div>
 	</div>
-	<textarea id="input">
-{{file}}
-</textarea>
+	</div>
+<div ng-controller="markdownController">
 
-<div id="output">
+    <textarea ng-model="input" placeholder="Enter Markdown text here" autofocus="true"></textarea>
+
+    <div ng-cloak ng-if="input.length > 0">
+        
+        <h2>HTML Preview</h2>
+        <div ng-bind-html="input | markdown" class="preview"></div>
+    
+        <h2>Raw HTML Output</h2>
+        <div class="htmlOutput">{{ input | markdown }}</div>
+        
+    </div>
 </div>
+   
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular-sanitize.min.js"></script>
+
 	<script type="text/javascript" src="app.js"></script>
 	<script type="text/javascript" src="script.js"></script>
 	<script type="text/javascript" src="github.js"></script>
-	<script>
-	showdown.extension("example", function() {
-		  'use strict';
-		  return [
-		    {
-		      type: 'lang',
-		      filter: function(text, converter, options) {
-		        var mainRegex = new RegExp("(^[ \t]*:>[ \t]?.+\n(.+\n)*\n*)+", "gm");
-		        text = text.replace(mainRegex, function(match, content) {
-		          content = content.replace(/^([ \t]*):>([ \t])?/gm, "");
-		          var foo = converter.makeHtml(content);
-		          return '\n<blockquote class="foo">' + foo + '</blockquote>\n';
-		        });
-		        return text;
-		      }
-		    }
-		  ]
-		});
 
-		var converter = new showdown.Converter(),
-		    inp = document.getElementById('input').value;
-
-		converter.useExtension("example");
-
-		document.getElementById("output").innerHTML = converter.makeHtml(inp);
-	</script>
 </body>
 </html>

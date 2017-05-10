@@ -1,4 +1,6 @@
-app.controller(
+
+app
+		.controller(
 				'githubViewer',
 				function($scope, github, $interval, $log, $anchorScroll,
 						$location) {
@@ -168,14 +170,43 @@ app.controller(
 							$scope.countdown = null;
 						}
 					};
+					
+					$scope.input = 'Enter your [Markdown][1] here.' +
+			        '\n' +
+			        '\n- *first*' +
+			        '\n- **second**' +
+			        '\n- third' +
+			        '\n' +
+			        '\n[1]: http://daringfireball.net/projects/markdown/syntax';
+			})
+
+			.filter('markdown', function() {
+			    var converter = new Showdown.converter();
+			    return converter.makeHtml;
 
 					$scope.username = "Vidhya03";
 					$scope.message = "GitHub Viewer";
 					$scope.repoSortOrder = "-stargazers_count";
 					$scope.countdown = 10;
-					$scope.file = '';
+					$scope.file = '# angular-2 sample apllication';
 					startCountdown();
 					/* $scope.readMeUrl = 'https://www.w3schools.com'; */
 					$scope.query = {}
 					$scope.queryBy = '$'
 				});
+
+app.controller('markdownController', function($scope) {
+    $scope.input = 'Enter your [Markdown][1] here.' +
+        '\n' +
+        '\n- *first*' +
+        '\n- **second**' +
+        '\n- third' +
+        '\n' +
+        '\n[1]: http://daringfireball.net/projects/markdown/syntax';
+})
+
+.filter('markdown', function() {
+    var converter = new Showdown.converter();
+    return converter.makeHtml;
+});
+
